@@ -5,13 +5,17 @@ import App from './App'
 //引入请求模块并绑定
 import './api/request.js'
 
+//引入vuex
+import store from './store/store.js'
 
 Vue.config.productionTip = false
 
 App.mpType = 'app'
 
+//绑定vuex
 const app = new Vue({
-	...App
+	...App,
+	store
 })
 app.$mount()
 // #endif
@@ -24,7 +28,7 @@ import App from './App.vue'
 export function createApp() {
 	const app = createSSRApp(App)
 	return {
-		app
+		app,
 	}
 }
 // #endif
