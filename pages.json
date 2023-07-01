@@ -21,6 +21,9 @@
 		"pages": [{
 			"path": "good_detail/goods_detail",
 			"style": {}
+		}, {
+			"path": "goods_list/goods_list",
+			"style": {}
 		}]
 	}],
 	"onDidSaveExecution": true,
