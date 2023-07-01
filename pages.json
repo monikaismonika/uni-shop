@@ -16,6 +16,13 @@
 			"style": {}
 		}
 	],
+	"subPackages": [{
+		"root": "subpkg",
+		"pages": [{
+			"path": "good_detail/goods_detail",
+			"style": {}
+		}]
+	}],
 	"onDidSaveExecution": true,
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
