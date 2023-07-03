@@ -32,8 +32,6 @@
 						</navigator>
 					</view>
 				</view>
-
-
 			</view>
 		</view>
 	</view>
