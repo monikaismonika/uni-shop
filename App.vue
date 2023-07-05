@@ -29,4 +29,8 @@
 		color: #333;
 		padding: 10px;
 	}
+
+	// page {
+	// 	position: relative;
+	// }
 </style>
