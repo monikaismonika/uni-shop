@@ -1,5 +1,6 @@
 <template>
 	<view class="cateContainer">
+		<my-search class="my-search-component"></my-search>
 		<view class="scroll_box" :style=" 'height:'+ _windowHeight+'px;' ">
 			<scroll-view scroll-y=" true" class="left_box">
 				<view :class="'cate-msg-item '+ (index === isCurrent ? 'current':'') " v-for="(item,index) in cateMsg"
@@ -57,7 +58,8 @@
 		},
 		computed: {
 			_windowHeight() {
-				return uni.getWindowInfo().windowHeight;
+				console.log(uni.getWindowInfo().windowHeight);
+				return uni.getWindowInfo().windowHeight - 50;
 			},
 			...mapGetters('cate', {
 				cateMsg: 'getterCateMsg'

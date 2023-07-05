@@ -1,5 +1,8 @@
 <template>
-	<view>
+	<view class="home-container">
+		<view class="home-search">
+			<my-search></my-search>
+		</view>
 		<swiper class="home_swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
 			:circular="true">
 			<swiper-item v-for="(item,index) in swiperMsg" :key="item">
@@ -96,7 +99,20 @@
 </script>
 
 <style lang="scss">
+	.home-container {
+		position: relative;
+		top: 0;
+
+		.home-search {
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 999;
+		}
+	}
+
 	.home_swiper {
+		margin-top: 50px;
 		height: 340rpx;
 	}
 

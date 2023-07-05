@@ -21,7 +21,6 @@ const actions = {
 			method: 'GET',
 			url: 'https://api-hmugo-web.itheima.net/api/public/v1/categories'
 		})
-		console.log(result);
 		commit('GETCATE', result);
 	},
 };
