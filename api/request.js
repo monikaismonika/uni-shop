@@ -14,7 +14,7 @@ uni._request = async (obj) => {
 		timeout: 5000,
 	})
 	//执行后置处理器
-	after ? after() : null;
+	after ? after(result = res[1]) : null;
 	//成功则返回结果
 	if (res[1].statusCode === 200) {
 		return res[1].data;
