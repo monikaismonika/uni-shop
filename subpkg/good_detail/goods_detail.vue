@@ -33,11 +33,15 @@
 </template>
 
 <script>
+	import {
+		mapGetters
+	} from 'vuex'
 	let that = null;
 	export default {
 		data() {
 			return {
 				goodsDetailMsg: {},
+				storeGoodsInfo: {},
 				navOptions: [{
 					icon: 'shop',
 					text: '店铺',
@@ -82,7 +86,19 @@
 			that = this;
 			await this._getDetailMsg(Options.goods_id);
 		},
+		computed: {
+			...mapGetters('cart', ['_getterGoodsCount']),
+		},
+		watch: {
+			_getterGoodsCount: {
+				handler(newValue) {
+					this.navOptions[1].info = newValue;
+				},
+				immediate: true,
+			}
+		},
 		methods: {
+			//点击轮播图的回调
 			previewImg(index) {
 				uni.previewImage({
 					current: index,
@@ -90,20 +106,21 @@
 						item.pics_big)
 				})
 			},
+			//点击购物车转跳至购物车页面
 			onClick(e) {
 				if (e.content.text === '购物车') {
 					uni.switchTab({
 						url: '/pages/cart/cart'
 					})
 				}
-				uni.showToast({
-					title: `点击${e.content.text}`,
-					icon: 'none'
-				})
 			},
+			//点击加入购物车
 			buttonClick(e) {
-				this.navOptions[1].info++
+				if (e.content.text === '加入购物车') {
+					this.$store.dispatch('cart/_addGoodsToCart', this.storeGoodsInfo);
+				}
 			},
+			//获取远程goodsDetail信息
 			async _getDetailMsg(goodsId) {
 				await uni._request({
 					url: 'https://api-hmugo-web.itheima.net/api/public/v1/goods/detail',
@@ -112,16 +129,26 @@
 						goods_id: goodsId
 					},
 					after(result) {
+						//修改服务端给定详情页面代码，解决小bug
 						if (result.statusCode && result.statusCode == 200) {
 							that.goodsDetailMsg = result.data.message;
 							that.goodsDetailMsg.goods_introduce = that.goodsDetailMsg.goods_introduce.replace(
 								/<img /g,
 								'<img style="display:block;" ')
 						}
+						//初始化vuex所需的商品数据
+						that.storeGoodsInfo = {
+							goods_id: that.goodsDetailMsg.goods_id,
+							goods_name: that.goodsDetailMsg.goods_name,
+							goods_price: that.goodsDetailMsg.goods_price,
+							goods_count: 1,
+							goods_big_logo: that.goodsDetailMsg.goods_small_logo,
+							goods_state: that.goodsDetailMsg.goods_state === 2,
+						}
 					}
 				});
-			}
-		}
+			},
+		},
 	}
 </script>
 
