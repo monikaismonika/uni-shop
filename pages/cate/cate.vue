@@ -33,7 +33,9 @@
 		mapGetters
 	}
 	from 'vuex';
+	import setCartBadge from '@/mixins/setCartBadge.js'
 	export default {
+		mixins: [setCartBadge],
 		data() {
 			return {
 				isCurrent: 0,

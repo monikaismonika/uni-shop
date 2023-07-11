@@ -5,7 +5,9 @@
 </template>
 
 <script>
+	import setCartBadge from '@/mixins/setCartBadge.js'
 	export default {
+		mixins: [setCartBadge],
 		data() {
 			return {
 

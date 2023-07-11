@@ -43,8 +43,10 @@
 <script>
 	import {
 		mapGetters
-	} from 'vuex'
+	} from 'vuex';
+	import setCartBadge from '@/mixins/setCartBadge.js'
 	export default {
+		mixins: [setCartBadge],
 		data() {
 			return {
 				swiperMsg: {},
