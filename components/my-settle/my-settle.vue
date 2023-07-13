@@ -13,7 +13,7 @@
 				合计：<text style="color: #E1251B;">￥{{total}}</text>
 			</view>
 		</view>
-		<view class="gotoPay">
+		<view class="gotoPay" @click="topay">
 			结算{{ '('+goodsCount+')'}}
 		</view>
 	</view>
@@ -29,11 +29,13 @@
 			return {
 				goodsCount: 0,
 				total: 0,
-				totalCheck: false
+				totalCheck: false,
+				address: null,
 			};
 		},
 		computed: {
-			...mapGetters('cart', ['_getterSettleCount', '_getterTotal', '_getterGoodsCount']),
+			...mapGetters('cart', ['_getterSettleCount', '_getterTotal', '_getterGoodsCount', '_getterAddressMsg']),
+			...mapGetters('user', ['_getterToken']),
 			_totalCheck() {
 				return this._getterSettleCount === this._getterGoodsCount
 			},
@@ -44,25 +46,31 @@
 			}
 		},
 		methods: {
+			//点击支付的回调函数
+			topay() {
+				if (this.goodsCount === 0 || this.total === 0) return uni.$showMsg('请选择要结算的商品');
+				if (!this._getterAddressMsg.provinceName) return uni.$showMsg('请选择收货地址');
+				if (this._getterToken === '') return uni.$showMsg('请先登录!');
+			},
 			//改变全选状态并刷新页面数据
 			async HandlerTotalRadioChange() {
 				this.totalCheck = !this.totalCheck;
 				await this.$store.dispatch('cart/_changeTotalChecked', this.totalCheck);
-				this.setGoodsCount();
-				this.setTotal();
+				this._setGoodsCount();
+				this._setTotal();
 			},
 			//重设商品总数
-			setGoodsCount() {
+			_setGoodsCount() {
 				this.goodsCount = this._getterSettleCount;
 			},
 			//重设总价
-			setTotal() {
+			_setTotal() {
 				this.total = this._getterTotal;
 			}
 		},
 		mounted() {
-			this.setGoodsCount();
-			this.setTotal();
+			this._setGoodsCount();
+			this._setTotal();
 			this.totalCheck = this._totalCheck
 		}
 	}

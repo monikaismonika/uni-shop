@@ -4,7 +4,8 @@ import App from './App'
 
 //引入请求模块并绑定
 import './api/request.js'
-
+//引入自定义showMsg
+import './utils/showMsg.js'
 //引入vuex
 import store from './store/store.js'
 
