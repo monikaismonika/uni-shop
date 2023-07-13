@@ -50,13 +50,13 @@
 		methods: {
 			async changeNum(e) {
 				await this._setBadge();
-				this.$refs.goodsSettle.setGoodsCount();
-				this.$refs.goodsSettle.setTotal();
+				this.$refs.goodsSettle._setGoodsCount();
+				this.$refs.goodsSettle._setTotal();
 			},
 			//当radio总数发生改变，通知结算组件变化
 			changeRadio() {
-				this.$refs.goodsSettle.setGoodsCount();
-				this.$refs.goodsSettle.setTotal();
+				this.$refs.goodsSettle._setGoodsCount();
+				this.$refs.goodsSettle._setTotal();
 			},
 			dialogToggle(type) {
 				this.msgType = type
@@ -76,8 +76,7 @@
 		},
 		onShow() {
 			if (this.$refs.goodsSettle) {
-				this.$refs.goodsSettle.setGoodsCount();
-				this.$refs.goodsSettle.setTotal();
+				this.changeRadio();
 			}
 		}
 	}

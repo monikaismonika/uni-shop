@@ -59,6 +59,7 @@ const mutations = {
 		uni.setStorageSync('goodsMsg', JSON.stringify(state.goodsMsg));
 	},
 	SAVEADDRESS(state, addressMsg) {
+		state.addressMsg = addressMsg;
 		uni.setStorageSync('addressMsg', JSON.stringify(addressMsg));
 	},
 	CHANGETOTALCHECKED(state, newTotalState) {
